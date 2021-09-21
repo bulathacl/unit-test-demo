@@ -48,7 +48,9 @@ namespace UnitTestDemo.Tests.UserEmailServiceTests
             // Arrange your objects, creating and setting them up as necessary.
             var dataContext = await SetupDataContextAsync();
             var emailService = new Mock<IEmailService>();
-            var service = new UserEmailService(dataContext, emailService.Object);
+            var dateTimeProvider = new Mock<IDateTimeProvider>();
+            dateTimeProvider.Setup(x => x.UtcNow).Returns(DateTime.UtcNow);
+            var service = new UserEmailService(dataContext, emailService.Object, dateTimeProvider.Object);
 
             // Act on an object.
             await service.SendUserEmailAsync("TestMsg", 3);
@@ -56,7 +58,7 @@ namespace UnitTestDemo.Tests.UserEmailServiceTests
             // Assert that something is as expected.
             emailService.Verify(x => x.SendEmailAsync(It.IsAny<SendEmailPayload>()), Times.Once());
 
-            // If you want to be more specific with the verification
+            //If you want to be more specific with the verification
             //emailService.Verify(x => x.SendEmailAsync(9), Times.Once());
         }
 
@@ -66,7 +68,9 @@ namespace UnitTestDemo.Tests.UserEmailServiceTests
             // Arrange your objects, creating and setting them up as necessary.
             var dataContext = await SetupDataContextAsync();
             var emailService = new Mock<IEmailService>();
-            var service = new UserEmailService(dataContext, emailService.Object);
+            var dateTimeProvider = new Mock<IDateTimeProvider>();
+            dateTimeProvider.Setup(x => x.UtcNow).Returns(DateTime.UtcNow);
+            var service = new UserEmailService(dataContext, emailService.Object, dateTimeProvider.Object);
 
             // Act on an object.
             await service.SendUserEmailAsync("TestMsg", 4);

@@ -36,7 +36,6 @@ namespace UnitTestDemo.Services
 
         public async Task<User> GetUserByIdWithAddressAsync(int id)
         {
-            var asd = await _dataContext.Users.FirstOrDefaultAsync(u => u.Id == id);
             return await _dataContext.Users.Include(u => u.Address).FirstOrDefaultAsync(u => u.Id == id);
         }
     }

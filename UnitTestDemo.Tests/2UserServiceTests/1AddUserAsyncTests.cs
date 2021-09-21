@@ -24,30 +24,30 @@ namespace UnitTestDemo.Tests.UserServiceTests
         {
             var dbContext = SetupDataContext();
             var userService = new UserService(dbContext);
-            await userService.AddUserAsync(
-                new User
-                {
-                    FirstName = "Chandula",
-                    LastName = "Bulathsinhala",
-                    Email = "chandula.b@aeturnum.com",
-                    Address = new Address
-                    {
-                        AddressLine1 = "Test1",
-                        AddressLine2 = "Test2"
-                    }
-                });
-
             //await userService.AddUserAsync(
-            //    new UserBuilder()
-            //    .WithFirstName("Chandula")
-            //    .WithLastName("Bulathsinhala")
-            //    .WithEmail("chandula.b@aeturnum.com")
-            //    .WithAddress(new AddressBuilder()
-            //                    .WithAddressLine1("Test1")
-            //                    .WithAddressLine2("Test2")
-            //                    .Build())
-            //    .Build());
-            
+            //    new User
+            //    {
+            //        FirstName = "Chandula",
+            //        LastName = "Bulathsinhala",
+            //        Email = "chandula.b@aeturnum.com",
+            //        Address = new Address
+            //        {
+            //            AddressLine1 = "Test1",
+            //            AddressLine2 = "Test2"
+            //        }
+            //    });
+
+            await userService.AddUserAsync(
+                new UserBuilder()
+                .WithFirstName("Chandula")
+                .WithLastName("Bulathsinhala")
+                .WithEmail("chandula.b@aeturnum.com")
+                .WithAddress(new AddressBuilder()
+                                .WithAddressLine1("Test1")
+                                .WithAddressLine2("Test2")
+                                .Build())
+                .Build());
+
             var userObj = await dbContext.Users.FirstOrDefaultAsync(u => u.FirstName == "Chandula");
             Assert.NotNull(userObj);
         }
